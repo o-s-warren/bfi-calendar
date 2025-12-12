@@ -1,0 +1,14 @@
+# Runtime/generated files
+bfi_screenings.json
+bfi_scraper.log
+netlify/
+
+# Python
+venv/
+bfiCalendar/
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
