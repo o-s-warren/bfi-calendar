@@ -775,7 +775,8 @@ HTML_TEMPLATE = """<!doctype html>
                      data-venue="{{ s.venue.short_name }}"
                      data-keywords="{{ s.keywords|join(',')|lower }}"
                      data-available="{{ 'yes' if s.is_available else 'no' }}"
-                     data-datetime="{{ s.datetime.isoformat() }}">                    <div class="screening-time">{{ s.time_str }}</div>
+                     data-datetime="{{ s.datetime.isoformat() }}">
+                    <div class="screening-time">{{ s.time_str }}</div>
                     <div class="screening-info">
                         <div class="screening-title">
                             <a href="{{ s.booking_url }}" target="_blank">{{ s.title }}</a>
@@ -818,7 +819,7 @@ HTML_TEMPLATE = """<!doctype html>
                     el.classList.add("hidden");
                 }
             });
- 
+
             // Hide any date-group that becomes empty
             dateGroups.forEach(group => {
                 const hasVisible = group.querySelector(".screening:not(.hidden)");
