@@ -100,3 +100,5 @@ For Netlify or similar static hosting:
 ```bash
 python bfi_calendar.py static --days 28 --output netlify/index.html
 ```
+
+Currently avaiable at 
