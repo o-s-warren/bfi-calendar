@@ -651,6 +651,14 @@ def load_screenings(path: Path = DATA_PATH) -> list[Screening]:
 HTML_TEMPLATE = """<!doctype html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BX93FDG4ZR"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BX93FDG4ZR');
+    </script>
     <meta charset="utf-8">
     <title>BFI Screenings</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -804,7 +812,6 @@ HTML_TEMPLATE = """<!doctype html>
     <script>
         const screenings = document.querySelectorAll('.screening');
         const dateGroups = document.querySelectorAll('.date-group');
-        const countDisplay = document.getElementById('count-display');
         const emptyState = document.getElementById('empty-state');
         const filterTitle = document.getElementById('filter-title');
         const filterKeyword = document.getElementById('filter-keyword');
@@ -847,8 +854,7 @@ HTML_TEMPLATE = """<!doctype html>
             dateGroups.forEach(g => {
                 g.classList.toggle('hidden', !g.querySelectorAll('.screening:not(.hidden)').length);
             });
-            
-            countDisplay.textContent = count + ' screening' + (count !== 1 ? 's' : '');
+
             emptyState.classList.toggle('visible', count === 0);
         }
         
