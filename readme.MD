@@ -101,4 +101,4 @@ For Netlify or similar static hosting:
 python bfi_calendar.py static --days 28 --output netlify/index.html
 ```
 
-Currently avaiable at 
+Currently available at https://bfi-southbank-screenings.netlify.app/
