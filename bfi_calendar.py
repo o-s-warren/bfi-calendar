@@ -818,51 +818,36 @@ HTML_TEMPLATE = """<!doctype html>
         const filterVenue = document.getElementById('filter-venue');
         const filterAvailable = document.getElementById('filter-available');
         
-        function hidePastScreenings() {
-            const now = new Date();
-            screenings.forEach(el => {
-                const screeningDate = new Date(el.dataset.datetime);
-                if (screeningDate < now) {
-                    el.classList.add("hidden");
-                }
-            });
-
-            // Hide any date-group that becomes empty
-            dateGroups.forEach(group => {
-                const hasVisible = group.querySelector(".screening:not(.hidden)");
-                group.classList.toggle("hidden", !hasVisible);
-            });
-        }
-
         function applyFilters() {
+            const now = new Date();
             const titleQ = filterTitle.value.toLowerCase().trim();
             const keywordQ = filterKeyword.value.toLowerCase().trim();
             const venueQ = filterVenue.value;
             const availOnly = filterAvailable.checked;
             let count = 0;
-            
+
             screenings.forEach(s => {
-                let show = true;
-                if (titleQ && !s.dataset.title.includes(titleQ)) show = false;
-                if (keywordQ && !s.dataset.keywords.includes(keywordQ)) show = false;
-                if (venueQ && s.dataset.venue !== venueQ) show = false;
-                if (availOnly && s.dataset.available !== 'yes') show = false;
+                const screeningDate = new Date(s.dataset.datetime);
+                let show = screeningDate >= now;
+                if (show && titleQ && !s.dataset.title.includes(titleQ)) show = false;
+                if (show && keywordQ && !s.dataset.keywords.includes(keywordQ)) show = false;
+                if (show && venueQ && s.dataset.venue !== venueQ) show = false;
+                if (show && availOnly && s.dataset.available !== 'yes') show = false;
                 s.classList.toggle('hidden', !show);
                 if (show) count++;
             });
-            
+
             dateGroups.forEach(g => {
                 g.classList.toggle('hidden', !g.querySelectorAll('.screening:not(.hidden)').length);
             });
 
             emptyState.classList.toggle('visible', count === 0);
         }
-        
+
         filterTitle.addEventListener('input', applyFilters);
         filterKeyword.addEventListener('input', applyFilters);
         filterVenue.addEventListener('change', applyFilters);
         filterAvailable.addEventListener('change', applyFilters);
-        hidePastScreenings();
         applyFilters();
     </script>
 </body>
